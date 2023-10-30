@@ -33,8 +33,9 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 //Dependency Injection Configuration
 builder.Services.AddScoped<ImplProductRepository, ProductRepository>();
 builder.Services.AddScoped<ImplProductService, ProductService>();
+builder.Services.AddScoped<ImplUserService, UserService>();
 builder.Services.AddScoped<ImplUnitOfWork, UnitOfWork>();
-
+builder.Services.AddScoped<ImplUserRespository, UserRepository>();
 builder.Services.AddScoped<ImplSubProductRepository, SubProductRepository>();
 builder.Services.AddScoped<ImplSubProductService, SubProductService>();
 
