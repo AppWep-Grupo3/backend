@@ -15,11 +15,13 @@ public class ProductController: ControllerBase
 {
     private readonly ImplProductService _productService;
     private readonly IMapper _mapper;
+    private readonly ImplSubProductService _subProductService;
     
-    public ProductController(ImplProductService productService, IMapper mapper)
+    public ProductController(ImplProductService productService, IMapper mapper, ImplSubProductService subProductService)
     {
         _productService = productService;
         _mapper = mapper;
+        _subProductService = subProductService;
     }
     
     [HttpGet]
@@ -27,6 +29,13 @@ public class ProductController: ControllerBase
     {
         var products = await _productService.ListAsync();
         var resources = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductResource>>(products);
+        // Iterar a través de los ProductResources y actualizar la lista de SubProducts
+        foreach (var productResource in resources)
+        {
+            var subProducts = await _subProductService.FindByProductIdAsync(productResource.Id);
+            productResource.SubProductsList = subProducts.ToList(); // Convierte a una lista si es necesario
+        }
+
         return resources;
     }
     

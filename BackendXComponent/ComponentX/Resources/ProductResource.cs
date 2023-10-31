@@ -1,3 +1,6 @@
+
+using BackendXComponent.ComponentX.Domain.Models;
+
 namespace BackendXComponent.ComponentX.Resources;
 
 public class ProductResource
@@ -18,5 +21,6 @@ public class ProductResource
     
     public string GeneralDetails { get; set; }
     
-    
+
+    public IList<SubProduct> SubProductsList { get; set; } = new List<SubProduct>();
 }
