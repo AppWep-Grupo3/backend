@@ -12,7 +12,7 @@ public class AppDbContext:DbContext
 {
     public DbSet<Product> Products { get; set; }
     public DbSet<SubProduct> SubProducts { get; set; }
-    
+    public DbSet<User> Users { get; set; }
     
     //Agregamos el constructor
     public AppDbContext(DbContextOptions options) : base(options)
@@ -48,6 +48,19 @@ public class AppDbContext:DbContext
         builder.Entity<SubProduct>().Property(p => p.Image).IsRequired().HasMaxLength(800);
         //Apply the snake case naming convention
         builder.UseSnakeCaseNamingConvention();
+        
+        
+        builder.Entity<User>().ToTable("Users");
+        builder.Entity<User>().HasKey(p => p.Id);
+        builder.Entity<User>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<User>().Property(p => p.FirstName).IsRequired().HasMaxLength(500);
+        builder.Entity<User>().Property(p => p.LastName).IsRequired().HasMaxLength(500);
+        builder.Entity<User>().Property(p => p.Email).IsRequired().HasMaxLength(800);
+        builder.Entity<User>().Property(p => p.Password).IsRequired().HasMaxLength(800);
+        
+        //Apply the snake case naming convention
+        builder.UseSnakeCaseNamingConvention();
+        
     }
     
 }
