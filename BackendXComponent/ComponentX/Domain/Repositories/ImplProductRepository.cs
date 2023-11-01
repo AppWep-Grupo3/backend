@@ -10,8 +10,6 @@ public interface ImplProductRepository
     
     Task<Product> FindByNameAsync(string name);
     
-    
-    
     Task<Product> FindByIdAsync(int id);
     
     void Update(Product product);
