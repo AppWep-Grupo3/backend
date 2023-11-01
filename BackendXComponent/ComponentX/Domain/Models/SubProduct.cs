@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace BackendXComponent.ComponentX.Domain.Models;
 
 public class SubProduct
@@ -17,8 +15,6 @@ public class SubProduct
     //relacion de asociacion de muchos a uno
     
     public int ProductId { get; set; }
-    
-    [JsonIgnore]
     public Product Product { get; set; }
 
     
