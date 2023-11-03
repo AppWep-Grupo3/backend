@@ -14,12 +14,14 @@ namespace BackendXComponent.ComponentX.Controllers;
 public class ProductController: ControllerBase
 {
     private readonly ImplProductService _productService;
+    private readonly ImplSubProductService _subProductService;
     private readonly IMapper _mapper;
     
-    public ProductController(ImplProductService productService, IMapper mapper)
+    public ProductController(ImplProductService productService, IMapper mapper, ImplSubProductService subProductService)
     {
         _productService = productService;
         _mapper = mapper;
+        _subProductService = subProductService;
     }
     
     [HttpGet]
@@ -38,6 +40,16 @@ public class ProductController: ControllerBase
             productResources.Add(productResource);
         }
        return productResources;
+    }
+    
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetAsync(int id)
+    {
+        var result = await _productService.GetByIdAsync(id);
+        
+      
+        var productResource = _mapper.Map<Product, ProductResource>(result);
+        return Ok(productResource);
     }
     
     [HttpPost]
