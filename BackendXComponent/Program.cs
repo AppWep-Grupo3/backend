@@ -42,12 +42,28 @@ builder.Services.AddScoped<ImplUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ImplUserRespository, UserRepository>();
 builder.Services.AddScoped<ImplSubProductRepository, SubProductRepository>();
 builder.Services.AddScoped<ImplSubProductService, SubProductService>();
-builder.Services.AddScoped<ImplSubProductRepository, SubProductRepository>();
+builder.Services.AddScoped<ImplCartRepository, CartRepository>();
+builder.Services.AddScoped<ImplCartService, CartService>();
+
+
+
+
 
 //AutoMapper Configuration
 builder.Services.AddAutoMapper(
     typeof(ModelToResourceProfile),
     typeof(ResourceToModelProfile));
+
+
+//Habilitar cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+        builder => builder.AllowAnyOrigin()//Esto permite que cualquier origen se conecte a nuestra API
+            .AllowAnyMethod()//Esto permite que cualquier metodo se conecte a nuestra API
+            .AllowAnyHeader());//Esto permite que cualquier header se conecte a nuestra API
+});
+
 
 var app = builder.Build();
 
@@ -67,6 +83,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+//Autorizmaos el uso de cors
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 
