@@ -18,5 +18,6 @@ public class ProductResource
     
     public string GeneralDetails { get; set; }
     
-    
+    //Agregar los subproductos relacionados con el producto
+    public List<SubProductResource> SubProductsList { get; set; }
 }

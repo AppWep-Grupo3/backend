@@ -17,7 +17,9 @@ public class ProductRepository: BaseRepository, ImplProductRepository
     //Agregamos el metodo GetAll
     public async Task<IEnumerable<Product>> ListAsync()
     {
-        return await _context.Products.ToListAsync();
+        return await _context.Products
+                    .Include(p=>p.SubProductsList)
+                    .ToListAsync();
     }
     
     //Agregamos el metodo AddAsync

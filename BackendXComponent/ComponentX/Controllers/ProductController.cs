@@ -26,8 +26,18 @@ public class ProductController: ControllerBase
     public async Task<IEnumerable<ProductResource>> GetAllAsync()
     {
         var products = await _productService.ListAsync();
-        var resources = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductResource>>(products);
-        return resources;
+        var productResources = new List<ProductResource>();
+        
+        foreach (var product in products)
+        {
+            var subProducts = await _subProductService.FindByProductIdAsync(product.Id);
+            var productResource = _mapper.Map<Product, ProductResource>(product);
+            productResource.SubProductsList = _mapper.Map<IEnumerable<SubProduct>, List<SubProductResource>>(subProducts);
+            
+            
+            productResources.Add(productResource);
+        }
+       return productResources;
     }
     
     [HttpPost]
