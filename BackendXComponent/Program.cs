@@ -42,7 +42,12 @@ builder.Services.AddScoped<ImplUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ImplUserRespository, UserRepository>();
 builder.Services.AddScoped<ImplSubProductRepository, SubProductRepository>();
 builder.Services.AddScoped<ImplSubProductService, SubProductService>();
-builder.Services.AddScoped<ImplSubProductRepository, SubProductRepository>();
+builder.Services.AddScoped<ImplCartRepository, CartRepository>();
+builder.Services.AddScoped<ImplCartService, CartService>();
+
+
+
+
 
 //AutoMapper Configuration
 builder.Services.AddAutoMapper(

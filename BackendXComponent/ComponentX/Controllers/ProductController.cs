@@ -47,8 +47,14 @@ public class ProductController: ControllerBase
     {
         var result = await _productService.GetByIdAsync(id);
         
+        //Buscar los subproductos del producto
+        var subProducts = await _subProductService.FindByProductIdAsync(id);
+        
+        
       
         var productResource = _mapper.Map<Product, ProductResource>(result);
+        productResource.SubProductsList = _mapper.Map<IEnumerable<SubProduct>, List<SubProductResource>>(subProducts);
+        
         return Ok(productResource);
     }
     

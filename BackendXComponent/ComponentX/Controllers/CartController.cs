@@ -26,6 +26,15 @@ using Microsoft.AspNetCore.Mvc;
             var resources = _mapper.Map<IEnumerable<Cart>, IEnumerable<CartResource>>(carts);
             return Ok(resources);
         }
+        
+        [HttpGet]
+        [Route("GetCartByUserId/{userId}")]
+        public async Task<ActionResult<IEnumerable<CartResource>>> GetCartByUserId(int userId)
+        {
+            var carts = await _cartService.GetCartByUserId(userId);
+            var resources = _mapper.Map<IEnumerable<Cart>, IEnumerable<CartResource>>(carts);
+            return Ok(resources);
+        }
 
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveCartResource resource)
@@ -46,44 +55,41 @@ using Microsoft.AspNetCore.Mvc;
             return Ok(cartResource);
         }
 
-        /*
-                 [HttpGet("{id}")]
-        public async Task<ActionResult<CartResource>> GetAsync(int id)
-        {
-            if(!ModelState.IsValid)
-                return BadRequest(ModelState.GetErrorMessages());
-            var user = _mapper.Map<SaveCartResource, Cart>();
-            var result = await _userService.UpdateAsync(id, user);
-        
-            if (!result.Success)
-                return BadRequest(result.Message);
-        
-            var userResource = _mapper.Map<User, UserResource>(result.Resource);
-            return Ok(userResource);
-        }
-         */
+       
         
         
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(int id, [FromBody] SaveCartResource resource)
+        
+        //Actualizar cantidad y total price
+        [HttpPut]
+        [Route("UpdateQuantityAndPrice/{id}")]
+        public async Task<IActionResult> UpdateQuantityAndPrice(int id, [FromBody] UpdateQuantityAndPriceResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
+            
+            //Devolver un objeto cartResponse
+            
+            
+            
 
-            var cart = _mapper.Map<SaveCartResource, Cart>(resource);
-            var result = await _cartService.UpdateAsync(id, cart);
+            //var cart = _mapper.Map<UpdateQuantityAndPriceResource, Cart>(resource);
+            var result = await _cartService.UpdateAsync(id, resource);
 
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var cartResource = _mapper.Map<Cart, CartResource>(result.Resource);
-            return Ok(cartResource);
+            return Ok(result);
+        
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        
+
+        [HttpDelete]
+        [Route("DeleteProducCart/{id}")]
+
+        public async Task<IActionResult> DeleteAsync(int id, [FromBody] DeleteFromCarritoResource resource)
         {
-            var result = await _cartService.DeleteAsync(id);
+            var result = await _cartService.DeleteAsync(id, resource);
 
             if (!result.Success)
                 return BadRequest(result.Message);

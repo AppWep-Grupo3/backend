@@ -4,9 +4,9 @@ public class Cart
 {
     public int Id { get; set; } // Clave primaria
     public int Quantity { get; set; }
-    public double TotalPrice { get; set; }
+    public decimal TotalPrice { get; set; }
     public int UserId { get; set; } // Clave externa para el usuario
-    public User User { get; set; }//Relacion de asociacion de uno a uno a usuario
+    //public User User { get; set; }//Relacion de asociacion de uno a uno a usuario
    
    
    //Relacion de asociacion de uno a muchos con productos

@@ -38,7 +38,9 @@ public class ProductRepository: BaseRepository, ImplProductRepository
     //Agregamos el metodo  FindByIdAsync
     public async Task<Product> FindByIdAsync(int id)
     {
-        return await _context.Products.FindAsync(id);
+        return await _context.Products
+            .Include(p=>p.SubProductsList)
+            .FirstOrDefaultAsync(p => p.Id == id);
     }
     
     //Agregamos el metodo Update

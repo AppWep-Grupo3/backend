@@ -15,6 +15,11 @@ public class CartRepository : BaseRepository, ImplCartRepository // Asegúrate d
     {
         return await _context.Carts.ToListAsync();
     }
+    
+    public async Task<IEnumerable<Cart>> GetCartByUserId(int userId)
+    {
+        return await _context.Carts.Where(c => c.UserId == userId).ToListAsync();
+    }
 
     public async Task AddAsync(Cart cart)
     {

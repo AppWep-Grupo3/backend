@@ -59,10 +59,7 @@ namespace BackendXComponent.Shared.Persistence.Contexts
             builder.Entity<Cart>().Property(p => p.TotalPrice).IsRequired().HasMaxLength(800);
             builder.Entity<Cart>().Property(p => p.SubproductId).IsRequired();
             // Configuración de la relación entre Cart y User (uno a uno)
-            builder.Entity<Cart>()
-                .HasOne(p => p.User)
-                .WithOne()
-                .HasForeignKey<Cart>(p => p.UserId);
+            
             
             
             builder.Entity<User>().ToTable("Users");
@@ -73,10 +70,7 @@ namespace BackendXComponent.Shared.Persistence.Contexts
             builder.Entity<User>().Property(p => p.Email).IsRequired().HasMaxLength(800);
             builder.Entity<User>().Property(p => p.Password).IsRequired().HasMaxLength(800);
             // Configuración de la relación entre User y Cart (uno a uno)
-            builder.Entity<User>()
-                .HasOne(p => p.Cart)
-                .WithOne(p => p.User)
-                .HasForeignKey<Cart>(p => p.UserId);
+           
             
             
             builder.Entity<Order>().ToTable("Orders");

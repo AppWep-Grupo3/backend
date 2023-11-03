@@ -12,5 +12,7 @@ public class ModelToResourceProfile: Profile
         CreateMap<SubProduct, SubProductResource>();
         CreateMap<User, UserResource>();
         CreateMap<OrderDetail, OrderDetail>();
+        CreateMap<Cart,  CartResource>();
+        
     }
 }

@@ -13,8 +13,8 @@ public class SaveCartResource
     public int? SubproductId { get; set; } // Clave externa para el subproducto (puede ser nulo si no se selecciona subproducto)
         
     [Required]
-    public int Cantidad { get; set; }
+    public int Quantity { get; set; }
     
     [Required]
-    public decimal UnitPriceDesct { get;  set; }
+    public decimal TotalPrice { get;  set; }
 }
