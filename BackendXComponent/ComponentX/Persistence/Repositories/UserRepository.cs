@@ -16,6 +16,13 @@ public class UserRepository : BaseRepository, ImplUserRespository
         return await _context.Users.ToListAsync();
     }
     
+    public async Task<IEnumerable<User>> GetUserByEmailAndPassword(string email, string password)
+    {
+        return await _context.Users
+            .Where(p => p.Email == email && p.Password == password)
+            .ToListAsync();
+    }
+    
     public async Task AddAsync(User user)
     {
         await _context.Users.AddAsync(user);

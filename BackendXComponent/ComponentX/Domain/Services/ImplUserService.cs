@@ -9,6 +9,8 @@ public interface ImplUserService
     
     Task<UserResponse> SaveAsync(User user);
     
+    Task<IEnumerable<User>> GetUserByEmailAndPassword(string email, string password);
+    
     Task<UserResponse> UpdateAsync(int id, User user);
     
     Task<UserResponse> DeleteAsync(int id);

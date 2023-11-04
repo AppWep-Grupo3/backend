@@ -5,6 +5,8 @@ namespace BackendXComponent.ComponentX.Domain.Repositories;
 public interface ImplUserRespository
 {
     Task<IEnumerable<User>> ListAsync();
+    
+    Task<IEnumerable<User>> GetUserByEmailAndPassword(string email, string password);
 
     Task AddAsync(User user);
     
