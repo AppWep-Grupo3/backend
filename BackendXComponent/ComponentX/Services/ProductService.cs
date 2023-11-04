@@ -41,6 +41,12 @@ public class ProductService: ImplProductService
         }
         
     }
+    
+    //Meotodo GetByIdAsync
+    public async Task<Product> GetByIdAsync(int id)
+    {
+        return await _productRepository.FindByIdAsync(id);
+    }
 
     public async Task<ProductResponse> UpdateAsync(int id, Product product)
     {

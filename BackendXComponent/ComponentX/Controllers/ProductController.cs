@@ -14,20 +14,48 @@ namespace BackendXComponent.ComponentX.Controllers;
 public class ProductController: ControllerBase
 {
     private readonly ImplProductService _productService;
+    private readonly ImplSubProductService _subProductService;
     private readonly IMapper _mapper;
     
-    public ProductController(ImplProductService productService, IMapper mapper)
+    public ProductController(ImplProductService productService, IMapper mapper, ImplSubProductService subProductService)
     {
         _productService = productService;
         _mapper = mapper;
+        _subProductService = subProductService;
     }
     
     [HttpGet]
     public async Task<IEnumerable<ProductResource>> GetAllAsync()
     {
         var products = await _productService.ListAsync();
-        var resources = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductResource>>(products);
-        return resources;
+        var productResources = new List<ProductResource>();
+        
+        foreach (var product in products)
+        {
+            var subProducts = await _subProductService.FindByProductIdAsync(product.Id);
+            var productResource = _mapper.Map<Product, ProductResource>(product);
+            productResource.SubProductsList = _mapper.Map<IEnumerable<SubProduct>, List<SubProductResource>>(subProducts);
+            
+            
+            productResources.Add(productResource);
+        }
+       return productResources;
+    }
+    
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetAsync(int id)
+    {
+        var result = await _productService.GetByIdAsync(id);
+        
+        //Buscar los subproductos del producto
+        var subProducts = await _subProductService.FindByProductIdAsync(id);
+        
+        
+      
+        var productResource = _mapper.Map<Product, ProductResource>(result);
+        productResource.SubProductsList = _mapper.Map<IEnumerable<SubProduct>, List<SubProductResource>>(subProducts);
+        
+        return Ok(productResource);
     }
     
     [HttpPost]

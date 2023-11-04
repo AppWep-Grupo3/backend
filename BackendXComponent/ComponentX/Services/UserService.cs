@@ -22,6 +22,12 @@ public class UserService : ImplUserService
         return await _userRespository.ListAsync() ;
     }
 
+    public async Task<IEnumerable<User>> GetUserByEmailAndPassword(string email, string password)
+    {
+        return await _userRespository.GetUserByEmailAndPassword(email, password);
+    }
+    
+    
     public async Task<UserResponse> SaveAsync(User user)
     {
         var existingUser = await _userRespository.FindByEmailAsync(user.Email);
@@ -41,6 +47,8 @@ public class UserService : ImplUserService
         }
         
     }
+    
+
     
     public async Task<UserResponse> UpdateAsync(int id, User user)
     {

@@ -10,9 +10,10 @@ public class ResourceToModelProfile: Profile
     {
         CreateMap<SaveProductResource, Product>();
         CreateMap<SaveSubProductResource, SubProduct>();
-        //CreateMap<UserResource, User>();
         CreateMap<SaveUserResource, User>();
         CreateMap<UserResource, User>();
+        CreateMap<OrderDetail, OrderDetail>();
+        CreateMap<SaveCartResource, Cart>();
     }
     
 }
