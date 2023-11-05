@@ -26,6 +26,7 @@ public class UserController : ControllerBase
         var users = await _userService.ListAsync();
         var resources = _mapper.Map<IEnumerable<User>, IEnumerable<UserResource>>(users);
         return resources;
+        //coment
     }
     
     //METHOD get by email and password
